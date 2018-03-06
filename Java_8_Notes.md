@@ -1,13 +1,13 @@
 Java 8 Functional Interfaces inside the java.util.function package.
 
---> java.util.function.Predicate<T>
-	public interface Predicate<T>{
-		public boolean test(T t);
-	}
---> java.util.function.consumer<T>
-	public interface Consumer<T>{
-		public void accept(T t);
-	}
+	--> java.util.function.Predicate<T>
+		public interface Predicate<T>{
+			public boolean test(T t);
+		}
+	--> java.util.function.consumer<T>
+		public interface Consumer<T>{
+			public void accept(T t);
+		}
 	use this interface when you need to access an object of type T and perform some operations on it. For example, you can use it to create a method forEach, which takes a list of Integers and applies an operation on each element of that list.
 	
 --> java.util.function.Function<T, R>
