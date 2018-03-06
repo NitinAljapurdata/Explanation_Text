@@ -1,0 +1,71 @@
+Spring cloud sleuths:(Distributed log tracing using Spring Cloud Sleuth with Example | Tech Primers)
+-----------------------
+SpanId: This id is used for within the server
+TraceId: TraceId is used for across the microservices
+Link: https://www.youtube.com/watch?v=gPKJkY2t7Pc&list=PLTyWtrsGknYdZlO7LAZFEElWkEk59Y2ak&index=3
+
+Eureka:
+--------
+Acts as naming registry
+
+Advantages:
+--> The larger the application, the longer the start-up time is.
+--> It is an obstacle to continuous deployment. the state of the art for SaaS applications is to push changes into production many times a day.
+--> Monolithic applications can also be difficult to scale when different modules have conflicting resource requirements.
+	--> For Example: one module might implement CPU-intensive image processing logic and would ideally be deployed in Amazon EC2 Compute Optimized instances. 
+					 Another module might be an in-memory database and best suited for EC2 Memory-optimized instances.
+--> Monolithic applications is reliability. Because all modules are running within the same process, a bug in any module, such as a memory leak, can potentially bring down the entire process.
+--> Difficult to adopt new frameworks and languages.
+
+Drawbacks:
+--> The Microservices architecture pattern has drawbacks. One drawback is the name itself. The term microservice places excessive emphasis on service size.
+--> The fact that a microservices application is a distributed system. Developers need to choose and implement an inter-process communication mechanism based on either messaging or RPC.
+--> Another challenge with microservices is the partitioned database architecture
+--> Testing a microservices application is also much more complex. For example, with a modern framework such as Spring Boot.
+--> Another major challenge with the Microservices Architecture pattern is implementing changes that span multiple services. For example, let’s imagine that you are implementing a story that requires changes to services A, B, and C,
+--> Deploying a microservices-based application is also much more complex
+
+
+NGINX Plus offers a mature, scalable, high-performance web server and reverse proxy that is easily deployed, configured, and programmed. NGINX Plus can manage authentication, access control, load balancing requests, caching responses, and provides applicationaware health checks and monitoring.
+
+---------------
+Best Practices:
+--> Should not hardode for endservices address rather use service discovery tools for that job.
+--> Logs: Log only once don't do too much logging,, for a particular error
+Generate correlated id (unique id ).. example request travelled to service A, service B, service C.. so keep track the request journey generate a unique and log them for debug purpose
+or you can use Splunk or logstash
+--> Versioning your service: semantic versioning
+	https://semver.org/
+	Example: 
+	Semantic Versioning 2.0.0
+		MAJOR.MINOR.PATCH, increment <==> 2.0.0
+--> Authorization
+--> depploy independent
+--> Make executable contracts:
+		--> API specifications
+				--> SOAP test(CI continuous integration)
+--> Fault Tolerance:
+		A --> B --> C
+		If "B" is taking time then fail it.. because if B is taking much time we have request in queue piping up
+--> Documentation:
+		Swagger
+DDD: Domain Driven Design
+
+Design Patterns:
+--> Aggregator Pattern:
+		--> Parallel(Scatter Gather Pattern)
+		--> Chain Pattern
+		--> Branch
+		
+IT services:
+ --> Attendance
+ --> Project Management
+ 
+ One service to get personal information
+ second service to get leave information
+ third service to get appraisal information
+ fouth service to get allocation information
+
+Gatling Gun : https://www.youtube.com/watch?v=fqP6PTUdtkY
+https://www.javacodegeeks.com/2016/04/continuous-stress-testing-jax-rs-javaee-applications-gatling-gradle-jenkins-pipeline.html?utm_content=buffer93441&utm_medium=social&utm_source=facebook.com&utm_campaign=buffer
+ 
