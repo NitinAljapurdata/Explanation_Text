@@ -4,25 +4,26 @@ Java 8 Functional Interfaces inside the java.util.function package.
 		public interface Predicate<T>{
 			public boolean test(T t);
 		}
+
 	--> java.util.function.consumer<T>
-		public interface Consumer<T>{
-			public void accept(T t);
+			public interface Consumer<T>{
+				public void accept(T t);
+			}
+use this interface when you need to access an object of type T and perform some operations on it. For example, you can use it to create a method forEach, which takes a list of Integers and applies an operation on each element of that list.
+
+	--> java.util.function.Function<T, R>
+		public interface Function<T, R>{
+			public R apply(T t);
 		}
-	use this interface when you need to access an object of type T and perform some operations on it. For example, you can use it to create a method forEach, which takes a list of Integers and applies an operation on each element of that list.
-	
---> java.util.function.Function<T, R>
-	public interface Function<T, R>{
-		public R apply(T t);
-	}
-	This interface when you need to define a lambda that maps information from an input object to an output
+This interface when you need to define a lambda that maps information from an input object to an output
 	Example: Extacting the weght of an apple or mapping a string to its length.
 
-1. T -> R --> Function 
+1. T -> R --> Function
 2. (int, int) -> int --> IntBinaryOperator
 3. T -> void --> Consumer
 4. () -> T --> Supplier
 5. (T, U) -> R --> BiFunction
-	
+
 Use case Example of lambda Matching functional interface
 A boolean
 expression
@@ -53,9 +54,9 @@ ToIntBiFunction<Apple, Apple>
 
 Type Inference:
 You can simplify your code one step further.
-Example: 
+Example:
 	Comparator<Apple> comparatorByNameReverse = (Apple apple1, Apple apple2) -> -apple1.getColor().compareTo(apple2.getColor()); --> without type inference
-				Changed to 
+				Changed to
 	Comparator<Apple> comparatorByNameReverse = (apple1, apple2) -> -apple1.getColor().compareTo(apple2.getColor()); --> With Type Inference
 
 Using local Variables:
@@ -65,10 +66,10 @@ Runnable run = () -> sysout(portNumber);
 		final int portNumber = 1337;
 		Runnable runa = () -> System.out.println(portNumber);
 		//portNumber = 10;
-	
+
 Restrictions on local variables:
 	Reason for why local variables to be declared as final if the local variable is used in lambda expression
-	
+
 Closure:
 
 Method references:
@@ -93,13 +94,13 @@ There are three main kinds of method references:
 2. A method reference to an instance method of an arbitrary type (for example, the method length of a String, written String::length)
 3. A method reference to an instance method of an existing object (for example, suppose you have a local variable expensiveTransaction that holds an object of type Transaction, which supports an instance method getValue; you can write expensiveTransaction::getValue)
 
-Difference between 2 and 3 is: 
+Difference between 2 and 3 is:
 --> Second kind of method references such as String::length is that your are referring too a method to an object that will be supplied as one of the parameters of the lambda.
 	(String str) -> str.toUpperCase() -->
 						String::toUpperCase
 --> Third Kind of method references refers to a situation you are calling a method in a lambda to an external objec that already exists.
 	expensiveObject.getValue().---> expensiveObject::getValue
-	
+
 Streams:
 -------
 “a sequence of elements from a source that supports data processing operations.”
@@ -149,17 +150,17 @@ https://www.javacodegeeks.com/2017/07/java-8-optionals.html
 					public void run() {
 					System.out.println("Hi");
 				}
-				
-				Now: 
+
+				Now:
 				Runnable runnable = () -> System.out.println("Hi");
 				Thread thread = new Thread(runnable);
 				thread.start();
-				
-				
+
+
 --> Method references:
 	They let you select an existing method defined in a class and pass it around.
-	
-		Example: 
+
+		Example:
 			List<String> strs = Arrays.asList("C", "a", "A", "b");
 			Collections.sort(strs, new Comparator<String>() {
 				@Override
@@ -167,7 +168,7 @@ https://www.javacodegeeks.com/2017/07/java-8-optionals.html
 				return s1.compareToIgnoreCase(s2);
    			}
 			});
-			
+
 			Now:
 			Collections.sort(strs, String::compareToIgnoreCase);
 --> Enhanced Interfaces
@@ -176,7 +177,7 @@ https://www.javacodegeeks.com/2017/07/java-8-optionals.html
 				--> For enhancements use it
 		--> Static methods
 				--> For util API's
-			
+
 Complitable future
 https://www.youtube.com/watch?v=OYpTn0nWKR4&t=1011s
 
@@ -194,10 +195,10 @@ Java8 - Features:
 --> Method reference and Constructor reference by Double colon (::) operator
 --> Streams API
 	 --> to perform bulk operation is easily to write readable concise code.
---> Date and Time API ( Joda API ) 
+--> Date and Time API ( Joda API )
 	 --> Introduced by joda.org
-	 
-Java 
+
+Java
 1.0
 	 1.1
 1.2 --> Collection ..Major version
@@ -211,7 +212,7 @@ Java
 --> To simplify programming
 --> To get the benefits of functional programming.. so that we enable the functional programming language in the form of lambda expressions
 	We can send behaviour as argument
---> To get benefits of multi-core processing or to enable parallel processing 
+--> To get benefits of multi-core processing or to enable parallel processing
 --> To use API's very easily and effectively
 
 LISP
@@ -221,10 +222,10 @@ What is Lambda Expression:
 Lambda Expression is an anonymous function:
 --> Not having any Name
 --> Not having modifiers
---> Not having any return type 
+--> Not having any return type
 
 Type Inference:
-compiler can guess the type of context automatically 
+compiler can guess the type of context automatically
 
 @Functional Interface:
 -----------------------
@@ -243,10 +244,10 @@ interface Interf{
 In-Valid
 
 interface Interf{
-	
+
 }
 In-valid
-	
+
 @Functional Interface W.R.T Inheritance:
 -----------------------------------------
 Case 1:
@@ -257,7 +258,7 @@ interface P{
 	public void m1();
 }
 interface C extends P{
-	
+
 }
 Compilation: Valid
 
@@ -300,8 +301,8 @@ interface C extends p{
 
 Compilation: Valid --> since Interface "C" is not annotated with @FunctionInterface.
 
---> It should contain exactly one abstract method 
---> It can contain any number of default and static methods 
+--> It should contain exactly one abstract method
+--> It can contain any number of default and static methods
 --> FunctionInterface acts as a "type" for Lambda Expressions
 	Interf1 f1 = () -> sysout("hello");
 	here the type of lambda experssion is functional interface Interf1
@@ -320,10 +321,10 @@ Case (Anonymous Inner class):
 --> Inside Anonymous inner class "this" always refers to current inner class (object) instance variable only.
 
 Case (Lambda Expression)
---> Inside lambda experssion is it possible to declare "instance" variable or not	
+--> Inside lambda experssion is it possible to declare "instance" variable or not
 	--> Not possible
-			--> the variable which is declared inside the lambda experssion is always acts as "local" variable only 
-	Example:	
+			--> the variable which is declared inside the lambda experssion is always acts as "local" variable only
+	Example:
 	Class Test{
 		int x = 888;
 		public void m1(){
@@ -334,30 +335,30 @@ Case (Lambda Expression)
 			t.m1(); --> 888
 		}
 		Here "x" is local variable but not instance variable
-		
---> Inside Lambda expression "this" always refers outer class variables only 
+
+--> Inside Lambda expression "this" always refers outer class variables only
 ------------------------------------------------------------------------------------------------------------
 Anonymous InnerClas                             |                          Lambda Expressions
 ------------------------------------------------------------------------------------------------------------
 -->It is a class without name								It is a function without name
---> It can extend concrete and     							It cannot extend abstract and concrete methods 
+--> It can extend concrete and     							It cannot extend abstract and concrete methods
 abstract classes
 --> AI class Can implement as								LaExp can implement interface which contain only one abstract methods with any number of default and static methods
-interface which contain any number 
-of abstract methods 
+interface which contain any number
+of abstract methods
 -->AI we can declare instance variables    					Here we cannot declare instance variables whatever declared can be considered as local variables
 --> Can be instantiated										we cannot instantiate
 --> this always refers to current   						this always refers to outer class object
-anonymous inner class object but 
+anonymous inner class object but
 not outer class object
 --> A seperate .class is generated    						no seperate class is generated
-for inner class 
+for inner class
 
 --> memory will be allocated on demand whenever.       will reside in premanent memory of JVM(method area)
 
 
 --> From Lambda Expression we can access unclosing class variable and enclosing method variable
-	--> The local variable (but not the class level variable) which are referenced from lambda expression are final or effectively declared as final 
+	--> The local variable (but not the class level variable) which are referenced from lambda expression are final or effectively declared as final
 	Example:
 		class Test{
 			int x = 10;
@@ -367,18 +368,18 @@ for inner class
 				sysout(x);
 				sysout(y);
 				y = 888; --> compile time error
-									local variables referenced from a lambda expression must be final 
+									local variables referenced from a lambda expression must be final
 			  }
-			  
+
 Advantages of Lambda Expression:
 ----------------------------------
 --> We can enable functional programming in java
 
-We can assign a procedure to a variable 
+We can assign a procedure to a variable
 	Exmaple: 	
 			String s = "durga";
 			Intref i = () -> sysout("hello");
-			directly as an argument --> early we can pass as variable or object 
+			directly as an argument --> early we can pass as variable or object
 --> We can reduce length of the object readability will be improved
 --> We can resolve complexity of Anonymous Inner classes until some extent.
 --> We can pass procedures/functions as argument instead of sending object
@@ -399,17 +400,17 @@ interface Right{
 }
 class Test implements Right, Left{
 }
-Compiltation: Fails 
+Compiltation: Fails
 class Test inherits Unrelated defaults for Left and Right
-failed because of ambiguity 
+failed because of ambiguity
 
-Solution: --> Provide implementation in class Test 
+Solution: --> Provide implementation in class Test
 class Test implements Right, Left{
 	public void m1(){
 		sysout("my Test m1");
 		}
 }
-Solution: --> i dont want to provide new implemtation want to use implementation provided by Left or Right 
+Solution: --> i dont want to provide new implemtation want to use implementation provided by Left or Right
 class Test implements Right, Left{
 	public void m1(){
 		Left.super.m1();
@@ -450,7 +451,7 @@ Interface with default method:
 	--> Inside interface we cannot override Object class methods
 Abstract Class:
 	--> Inside Abstract class we can override object class methods..
-	
+
     Interface with default methods != Abstract classes
 
 -------------------------------------------------------------------------------------------------------------
@@ -459,7 +460,7 @@ Static methods inside Interface:
 ----------------------------------
 -->Inside interface we can take static method from java1.8
 --> To define general utility methods.
---> Interface static methods by default are not available to the implementation class.	
+--> Interface static methods by default are not available to the implementation class.
 	--> That's why in the implementation class We cannot call static method directly, by implementation object reference or by using implmentation class name.
 	Possible using only Interface name only.
 	Example:
@@ -474,10 +475,10 @@ Static methods inside Interface:
 			intref.m1() --> valid
 		  }
 		}
-		
+
 Interface static methods wrt Overriding:
 -----------------------------------------
---> Overriding concept is not applicable for Interface static methods. 
+--> Overriding concept is not applicable for Interface static methods.
 --> If you want same method signature you can do so but it is not a overriding since the static method is not available to the implemented class  
 
 interface Interef{
@@ -500,10 +501,10 @@ Supplier
 Package: Java.util.function
 
 Predicate: (Interface) Predicate Joining:
-------------------	
+------------------
 --> Java 1.8
---> """"A boolean valued function"""" 
---> test method 
+--> """"A boolean valued function""""
+--> test method
 	interface Predicate<T>{
 		public boolean test(T t);
 	}
@@ -514,18 +515,18 @@ Predicate: (Interface) Predicate Joining:
 		--> negate
 	Static Method:
 		--> isEqual
-	
+
 
 Function:
 ----------
 --> It can return any   Type
-Package: java.util.Function 
+Package: java.util.Function
 --> interface Function<T, R>{
 	R apply(T t); --> after performing functionality return type "R"
 }
 T --> Input parameter
 R --> Return Type
-Example: 
+Example:
 	Find length of a given string
 	Function<String, Integer> findStringLength = s -> s.length();
 --> Function have 2 default methods and 1 static method
@@ -536,15 +537,15 @@ Example:
 		--> identity
 	Example: 	
 		Function<Integer, Integer> times2 = e -> e * 2;
-		Function<Integer, Integer> squared = e -> e * e; 
-	
+		Function<Integer, Integer> squared = e -> e * e;
+
 		times2.compose(squared).apply(4); // Returns 32
 				--> squared -- 4 --> 16
 				--> times2  -- 16*2 --> 32
-		times2.andThen(squared).apply(4); // Returns 64 
+		times2.andThen(squared).apply(4); // Returns 64
 				--> times2  -- 4*2  --> 8				--> squared -- 8*8 --> 64
 		Link: http://www.deadcoderising.com/2015-09-07-java-8-functional-composition-using-compose-and-andthen/
-		
+
 Consumer:(accept, consume items and perform process)
 ---------
 --> Java8
@@ -556,11 +557,11 @@ interface Consumer<T>{ --> T Input Type
 --> Consumer has 1 default method
 	Default:
 		--> andThen
-				--> Here andThen is executed last 
+				--> Here andThen is executed last
 			Example:
 				Consumer<Integer> multiply = i -> System.out.println(i * 2);
 				Consumer<Integer> add2 = i -> System.out.println(i + 2);
-				
+
 				multiply.andThen(add2).andThen(multiply).accept(10);
 				Output: 	20 12 20
 
@@ -595,36 +596,36 @@ If you want to use method reference compulsory both methods should have argument
 				i.m1();
 			}
 		}
-	  Interef interface m1 method internally refers Test class static method m1	
-		
+	  Interef interface m1 method internally refers Test class static method m1
+
 	*****MethodReference is alternative syntax to lambda Expression***
-	
+
 --> the target method (Here m2) can be:
 	--> Static Method or
 	--> Instance Method
   Only one condition that argument types must be same
-  
+
     --- Instance Method ---
 		ObjectRef::MethodName
 		Example:
 			Test t = new Test();
-				 t::m2(); 
+				 t::m2();
 
 Thread:
 --------
 Runnable have only one method run:
 	public void run();
-	
+
 	Runnable r = new MyRunnable(); --> 1
 				 Lambda Expression --> 2
 				 Method Reference  --> 3
-		use any way 
+		use any way
 	Thread t = new Thread();
 	t.start();
-	
+
 	Runnable interface run method internally refers Test class m1 method
 	Runnable r = Test::m1;
-	
+
 Constructor Reference by Double Colon Operator:
 -----------------------------------------------
 --> Arguments type must match
@@ -667,9 +668,9 @@ Difference between Collections and Streams:
 
 Stream s = c.stream();
 			c -> Any Collection Object
-			stream() --> this methid present in Collection interface as default method 
+			stream() --> this methid present in Collection interface as default method
 	Stream --> is a interface present in Java.util.Stream package
-	
+
 	1) Configuration
 		--> Filter Mechanism
 				If we want to filter elements from the collection based on some boolean condition, then we should go for filtering
@@ -684,28 +685,28 @@ Stream s = c.stream();
 	2) Processing
 		1) Processing by collect() method:
 			This method collects elemets from the stream and added to the specified Collection
-			
+
 		2)	Count() --> long
- 		3) Processing by sorted() method: 
+ 		3) Processing by sorted() method:
 			--> Wd can use sorted() method to sort elemets inside stream.
 			--> We can sort either based on default natural sorting order or have on our own Customized Sorting order Specified by comparator Object
 				sorted() --> for default natural sorting order
 				sorted(Comparator t) --> For customized sorting order.
 		 4) Min() and Max() --> here the list should be sorted for both Min and Max
-		 5) forEach() --> It won't return anything 
+		 5) forEach() --> It won't return anything
 			--> this method won;t return anything
 			--> this method can take Lambda Expression as argument and apply that Lambda expression for each element present in Stream
-		  6) toArray()	
+		  6) toArray()
 			 --> We can use toArray() method to copy elements present in the stream into specified array
 Stream of() method:
 			 --> We can also apply stream for group of values and for arrays
 			 1) For group of values
 				 Stream<Integer> s = Stream.of()
-				 
+
 Summary Stream:
 ----------------
 1) Purpose
-To process the elements present in the collection 
+To process the elements present in the collection
 2) Stram --> java.util.Stream
 		Stream s = c.stream();
 			stream() method present in Collection interface so stream method available in every collection class
@@ -729,8 +730,8 @@ Stream.of() --> Stream interface
 	Predicate<T> boolean valued function "test"
 6) Function<T, R> "apply"
 7) Cunsumer<T> "accept"
-8) Suppler<R> "get" 
-9) Method Reference and Constructor reference by using double colon operator 
+8) Suppler<R> "get"
+9) Method Reference and Constructor reference by using double colon operator
 	Instance method ObjRef::methodNAme
 	Static method className::methodNAme
 10) Streams
@@ -742,7 +743,7 @@ Date, Calendar, TimeStamp until 1.7 these classes are that much convenience to u
 		--> getDayOfMonth()
 		--> getMonthValue()
 		--> getYear()
-	
+
 	LocalTime time = LocalTime.now() --> to get current time
 	java.time package
 		--> getHour()
@@ -751,7 +752,7 @@ Date, Calendar, TimeStamp until 1.7 these classes are that much convenience to u
 		--> getMinute()
 	LocalDateTime
 To handle both date and time then use "LocalDateTime"
-12) Period to represent quantity of time 
+12) Period to represent quantity of time
 	how many months
 	how many years
 13) Year
@@ -773,21 +774,21 @@ Can we make Default method static in Java? (http://www.java67.com/2017/08/java-8
 Link: http://www.java67.com/2017/08/java-8-default-methods-faq-frequently-questions-answers.html#ixzz4rmJTZtDC
 
 No, You cannot make default method static in Java. If you declare static method and default together, the compiler will complain saying "illegal combination of modifiers: static and default".
-Example: 
+Example:
 	interface Finder{
 		static default void find(){
 			sysout("HI")
 		}
 	}
 	Error: illegal combination of modifier and static
-	
+
 Can default method override equals(), hashCode() or toString() from Object class?
 ----------------------------------------------------------------------------------
-interface Parser{ 
+interface Parser{
 	@Override default String toString()
-	{ 
-		return ""; 
-	} 
+	{
+		return "";
+	}
 } Compile time error : "default method toString in interface parser overrides a member of java.lang.Object"
 
 How to Remove key value pairs or Entries from HashMap in Java 8?
@@ -820,9 +821,9 @@ map.entrySet().stream() .forEach(e-> System.out.println(e.getKey()+" : "+e.getVa
 --> Method reference and Constructor reference by Double colon (::) operator
 --> Streams API
 	 --> to perform bulk operation is easily to write readable concise code.
---> Date and Time API ( Joda API ) 
+--> Date and Time API ( Joda API )
 	 --> Introduced by joda.org
-	 
+
 Peek and Skip:
 https://www.youtube.com/watch?v=oqB91V9QVK0
 Skip:
@@ -838,4 +839,3 @@ Stream.of("One", "Two", "Three")
 	  .peek(i -> System.out.println(i)) --> which prints the results
 	  .collect(Collections.toList());
 And use peek before terminal operation... mainly used for logging	  
-	  
