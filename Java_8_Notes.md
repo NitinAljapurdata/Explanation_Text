@@ -55,18 +55,20 @@ ToIntBiFunction<Apple, Apple>
 Type Inference:
 You can simplify your code one step further.
 Example:
-	Comparator<Apple> comparatorByNameReverse = (Apple apple1, Apple apple2) -> -apple1.getColor().compareTo(apple2.getColor()); --> without type inference
-				Changed to
-	Comparator<Apple> comparatorByNameReverse = (apple1, apple2) -> -apple1.getColor().compareTo(apple2.getColor()); --> With Type Inference
-
+```
+Comparator<Apple> comparatorByNameReverse = (Apple apple1, Apple apple2) -> -	apple1.getColor().compareTo(apple2.getColor()); --> without type inference
+		Changed to
+Comparator<Apple> comparatorByNameReverse = (apple1, apple2) -> -apple1.getColor().compareTo(apple2.getColor()); --> With Type Inference
+```
 Using local Variables:
+```
 int portNumber = 1337;
 Runnable run = () -> sysout(portNumber);
 		//Access Local Variables:
 		final int portNumber = 1337;
 		Runnable runa = () -> System.out.println(portNumber);
 		//portNumber = 10;
-
+```
 Restrictions on local variables:
 	Reason for why local variables to be declared as final if the local variable is used in lambda expression
 
@@ -75,18 +77,20 @@ Closure:
 Method references:
 Method references let you reuse existing method definitions and pass them just like lambdas.
 
+```
 inventory.sort((Apple a1, Apple a2)
--> a1.getWeight().compareTo(a2.getWeight()));
+  -> a1.getWeight().compareTo(a2.getWeight()));
+  ```
 After (using a method reference and java.util.Comparator.comparing):
-inventory.sort(compare(Apple::getWeight));
+```inventory.sort(compare(Apple::getWeight));
+```
 
---------------------------------------------------------------------------
-Lambda Method 									reference equivalent
---------------------------------------------------------------------------
-(Apple a) -> a.getWeight() 						Apple::getWeight
-() -> Thread.currentThread().dumpStack() 		Thread.currentThread()::dumpStack
-(str, i) -> str.substring(i) 					String::substring
-(String s) -> System.out.println(s) 			System.out::println
+Lambda Method 	|								reference equivalent
+
+(Apple a) -> a.getWeight() 		|				Apple::getWeight
+() -> Thread.currentThread().dumpStack() 	|	Thread.currentThread()::dumpStack
+(str, i) -> str.substring(i) 	 |				String::substring
+(String s) -> System.out.println(s) 	|		System.out::println
 
 
 There are three main kinds of method references:
@@ -95,12 +99,15 @@ There are three main kinds of method references:
 3. A method reference to an instance method of an existing object (for example, suppose you have a local variable expensiveTransaction that holds an object of type Transaction, which supports an instance method getValue; you can write expensiveTransaction::getValue)
 
 Difference between 2 and 3 is:
---> Second kind of method references such as String::length is that your are referring too a method to an object that will be supplied as one of the parameters of the lambda.
-	(String str) -> str.toUpperCase() -->
+* Second kind of method references such as String::length is that your are referring too a method to an object that will be supplied as one of the parameters of the lambda.
+```
+  (String str) -> str.toUpperCase() -->
 						String::toUpperCase
---> Third Kind of method references refers to a situation you are calling a method in a lambda to an external objec that already exists.
-	expensiveObject.getValue().---> expensiveObject::getValue
-
+```
+* Third Kind of method references refers to a situation you are calling a method in a lambda to an external objec that already exists.
+```
+  expensiveObject.getValue().---> expensiveObject::getValue
+```
 Streams:
 -------
 “a sequence of elements from a source that supports data processing operations.”
@@ -109,10 +116,12 @@ Sequence of elements: collection
 source: where we consume data-providing source such as collection
 
 Traversable only once
+```
 	List<STring> list = Arrays.toList("abc","efg","hihj");
 	Stream<String> listStream = list.stream();
 	listStream.forEach(sysout);
 	listStream.forEach(sysout); --> error IllegalStateException Stream has already closed .
+  ```
 So keep in mind that you can consume a stream only once!
 
 Short-Circuiting:
@@ -123,17 +132,17 @@ filter and map are two separate operations, they were merged into
 the same pass (we call this technique loop fusion).
 
 Intermediate Operations:
---> filter --> Predicate
---> map -->Function
---> limit
---> distinct
---> sorted
---> skip
+* filter --> Predicate
+* map -->Function
+* limit
+* distinct
+* sorted
+* skip
 
 Terminal Operations:
---> collect
---> forEach
---> count
+* collect
+* forEach
+* count
 
 1) stream Stream<Dish>
 2) filter isVegetarian Stream<Dish>
@@ -143,22 +152,25 @@ Terminal Operations:
 Optionals:
 https://www.javacodegeeks.com/2017/07/java-8-optionals.html
 
---> Lambda expressions:
-	Lambda expressions let you pass around a piece of code in a concise way(easy, readable).
-		Example: Runnable runnable = new Runnable() {
+### Lambda expressions:
+Lambda expressions let you pass around a piece of code in a concise way(easy, readable).
+
+```
+		Example:
+      Runnable runnable = new Runnable() {
 					@Override
 					public void run() {
 					System.out.println("Hi");
 				}
 
-				Now:
-				Runnable runnable = () -> System.out.println("Hi");
-				Thread thread = new Thread(runnable);
-				thread.start();
+		Now:
+  		Runnable runnable = () -> System.out.println("Hi");
+  		Thread thread = new Thread(runnable);
+  		thread.start();
+```
 
-
---> Method references:
-	They let you select an existing method defined in a class and pass it around.
+### Method references:
+They let you select an existing method defined in a class and pass it around.
 
 		Example:
 			List<String> strs = Arrays.asList("C", "a", "A", "b");
@@ -171,58 +183,63 @@ https://www.javacodegeeks.com/2017/07/java-8-optionals.html
 
 			Now:
 			Collections.sort(strs, String::compareToIgnoreCase);
---> Enhanced Interfaces
-	 Introduces two enhancements:
-		--> Default Methods
-				--> For enhancements use it
-		--> Static methods
-				--> For util API's
+* Enhanced Interfaces
+	 * Introduces two enhancements:
+		 * Default Methods
+				* For enhancements use it
+		* Static methods
+				* For util API's
 
-Complitable future
+### Complitable future:
 https://www.youtube.com/watch?v=OYpTn0nWKR4&t=1011s
 
 ----------------------------------------------------------------------------------------------------
 Java8 - Features:
 -------------------
---> Lambda Expressions
---> Functional Interfaces --> to invoke or to call lamdba experssion we should go for functional interfaces
---> Default methods in Interface
---> Static methods in Interface
---> Predefined Functional Interfaces
-	--> Predicate
-	--> Function
-	--> Consumer
---> Method reference and Constructor reference by Double colon (::) operator
---> Streams API
-	 --> to perform bulk operation is easily to write readable concise code.
---> Date and Time API ( Joda API )
-	 --> Introduced by joda.org
+*  Lambda Expressions
+*  Functional Interfaces
+    * to invoke or to call lamdba experssion we should go for functional interfaces
+*  Default methods in Interface
+*  Static methods in Interface
+*  Predefined Functional Interfaces
+	*  Predicate
+	*  Function
+	*  Consumer
+*  Method reference and Constructor reference by Double colon (::) operator
+*  Streams API
+	 *  to perform bulk operation is easily to write readable concise code.
+*  Date and Time API ( Joda API )
+	 *  Introduced by joda.org
 
-Java
-1.0
-	 1.1
-1.2 --> Collection ..Major version
-	 1.3
-	 1.4
-1.5 --> Major Version
-	 1.6
-	 1.7
-1.8 --> Major Version
 
---> To simplify programming
---> To get the benefits of functional programming.. so that we enable the functional programming language in the form of lambda expressions
-	We can send behaviour as argument
---> To get benefits of multi-core processing or to enable parallel processing
---> To use API's very easily and effectively
+### Java:
+* 1.0
+ * 1.1
+* 1.2
+  *  Collection ..Major version
+* 1.3
+* 1.4
+* 1.5
+  *  Major Version
+* 1.6
+* 1.7
+* 1.8
+  *  Major Version
+
+*  To simplify programming
+*  To get the benefits of functional programming.. so that we enable the functional programming language in the form of lambda expressions
+We can send behaviour as argument
+*  To get benefits of multi-core processing or to enable parallel processing
+*  To use API's very easily and effectively
 
 LISP
 
 What is Lambda Expression:
 ---------------------------
 Lambda Expression is an anonymous function:
---> Not having any Name
---> Not having modifiers
---> Not having any return type
+*  Not having any Name
+*  Not having modifiers
+*  Not having any return type
 
 Type Inference:
 compiler can guess the type of context automatically
@@ -230,13 +247,15 @@ compiler can guess the type of context automatically
 @Functional Interface:
 -----------------------
 Unexpected @FunctionInterface annotation.. multiple non-overriding abstract methods found in Interface Interf1
+```
 interface Interf{
 	public void m1();
 	default public void m2(){}
 	static void m3(){}
 }
 Valid
-
+```
+```
 interface Interf{
 	public void m1();
 	public void m2(){}
@@ -247,12 +266,12 @@ interface Interf{
 
 }
 In-valid
-
-@Functional Interface W.R.T Inheritance:
+```
+### @Functional Interface W.R.T Inheritance:
 -----------------------------------------
-Case 1:
+#### Case 1:
 If an interface extends Functional Interface and child interface does not contain any abstract method, then child interface is always Functional Interface.
-
+```
 @FunctionInterface
 interface P{
 	public void m1();
@@ -261,9 +280,10 @@ interface C extends P{
 
 }
 Compilation: Valid
-
-Case 2:
+```
+#### Case 2:
 In the child interface we can define exactly same parent interface abstract method.
+```
 @FunctionInterface
 interface P{
 	public void m1();
@@ -273,9 +293,10 @@ interface C extends P{
 	public void m1();
 }
 Compilation: Valid
-
-Case 3:
+```
+#### Case 3:
 In the child inteeface we cannot define any new abstract methods otherwise we will get compile time error.
+```
 @FunctionInterface
 interface P{
 	public void m1();
@@ -286,11 +307,11 @@ interface C extends P{
 }
 Compilation: Not-Valid
 One from Parent and one from Child
-
+```
 CE: unexpecte @FunctionInterface annotation multiple non-overriding abstract methods found in interface "C".
 
-Case 4:
-
+#### Case 4:
+```
 @FunctionInterface
 interface p{
 	public void m1();
@@ -298,33 +319,34 @@ interface p{
 interface C extends p{
 	public void m2();
 }
-
+```
 Compilation: Valid --> since Interface "C" is not annotated with @FunctionInterface.
 
---> It should contain exactly one abstract method
---> It can contain any number of default and static methods
---> FunctionInterface acts as a "type" for Lambda Expressions
+*  It should contain exactly one abstract method
+*  It can contain any number of default and static methods
+*  FunctionInterface acts as a "type" for Lambda Expressions
 	Interf1 f1 = () -> sysout("hello");
 	here the type of lambda experssion is functional interface Interf1
---> FunctionInterface can be used to invoke Lambda expression
+*  FunctionInterface can be used to invoke Lambda expression
 	f1.m1();
---> For lambda expressions concept FunctionInterface concept came
+*  For lambda expressions concept FunctionInterface concept came
 
 We can replace Anonymous inner class with lambda experssion in only one particular cases that is the anonymous inner class that contains only one abstract method.
 that is only in the case of functional interfaces anonymous inner classes can be replaced with lambda experssion
 
-Anonymous Inner class != Lambda Expression
+**Anonymous Inner class != Lambda Expression**
 
-Case (Anonymous Inner class):
+####  Case (Anonymous Inner class):
 
---> Inside Anonymous inner class is it possible to declare instance variable yes we can declare
---> Inside Anonymous inner class "this" always refers to current inner class (object) instance variable only.
+*  Inside Anonymous inner class is it possible to declare instance variable yes we can declare
+*  Inside Anonymous inner class "this" always refers to current inner class (object) instance variable only.
 
-Case (Lambda Expression)
---> Inside lambda experssion is it possible to declare "instance" variable or not
-	--> Not possible
-			--> the variable which is declared inside the lambda experssion is always acts as "local" variable only
+#### Case (Lambda Expression)
+*  Inside lambda experssion is it possible to declare "instance" variable or not
+	*  Not possible, the variable which is declared inside the lambda experssion is always acts as "local" variable only
+	```
 	Example:
+
 	Class Test{
 		int x = 888;
 		public void m1(){
@@ -332,11 +354,11 @@ Case (Lambda Expression)
 		}
 		psvm (){
 			Test t =  new Test();
-			t.m1(); --> 888
+			t.m1(); *  888
 		}
 		Here "x" is local variable but not instance variable
-
---> Inside Lambda expression "this" always refers outer class variables only
+```
+*  Inside Lambda expression "this" always refers outer class variables only
 ------------------------------------------------------------------------------------------------------------
 Anonymous InnerClas                             |                          Lambda Expressions
 ------------------------------------------------------------------------------------------------------------
