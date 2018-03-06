@@ -102,7 +102,7 @@ Difference between 2 and 3 is:
 	
 Streams:
 -------
-ìa sequence of elements from a source that supports data processing operations.î
+‚Äúa sequence of elements from a source that supports data processing operations.‚Äù
 
 Sequence of elements: collection
 source: where we consume data-providing source such as collection
