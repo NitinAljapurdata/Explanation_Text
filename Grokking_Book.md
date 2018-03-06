@@ -77,7 +77,3 @@ O(n)--> Worst case scenario
 
 HashTables: Hashtables are as fast as arrays at searching, and they are as fast as LinkedList in insertion and deletion
 
-Code: 20128088
-Access code: 1Asn!dLV
-Password: Naveen532$
-UserName: NitinAljapurdata
