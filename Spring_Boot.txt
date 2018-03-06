@@ -1,0 +1,175 @@
+Swagger:
+--------
+localhost:8081/swagger-ui.html
+server.port=8090
+logging.level.org.org.springframework=debug
+For Documentation, for rest API's
+Dependencies:
+	<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+			<scope>compile</scope>
+		</dependency>
+		
+	<dependency>
+		<groupId>io.springfox</groupId>
+		<artifactId>springfox-swagger-ui</artifactId>
+		<version>2.6.1</version>
+		<scope>compile</scope>
+	</dependency>
+@EnableSwagger2
+@Configuration
+public class SwaggerConfig {
+public Docket productApi(){
+	return new Docket(DocumentationType.SWAGGER_2)
+			.select()
+			.apis(RequestHandlerSelectors.basePackage("com.springboot.examples"))
+//				.paths(regex("/rest.*"))
+			.build()
+			.apiInfo(apiInfo());
+}
+private ApiInfo apiInfo() {
+	ApiInfo apiInfo = new ApiInfo("Swagger First", "Swagger Boot Test", 
+			"1.0", "termsOfServiceUrl", 
+			 new Contact("NitinPrimers", "http://youtube.com","abc.@gmail.com"), "Apache License", "http://abc.com");
+	return apiInfo;
+}
+}
+
+http://www.springboottutorial.com/spring-boot-starter-projects
+http://www.springboottutorial.com/
+
+For Actuators:
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+<dependency>
+<groupId>org.springframework.data</groupId>
+<artifactId>spring-data-rest-hal-browser</artifactId>
+</dependency>
+
+For Auto Refresh:
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-devtools</artifactId>
+</dependency>
+
+http://download.eclipse.org/eclipse/updates/4.5/
+
+--------------
+Spring Boot:
+--------------
+Microservices and SOA
+Without boot we cannot develop microservices and cloud need boot, devops 
+			Maven course
+			Spring
+			Spring Boot
+			
+Spring-boot-starter-parent
+-------------------------
+Dependency Versioning
+Plugins
+Java version
+
+MessageConvertors, are automatically registered.. spring uses MessageConvertor to convert object to JSON
+	Object --> JSON
+	JSON --> Object	
+	
+	jackson-databing
+	jackson-annotation
+	jackson-core
+	
+	Spring boot developer tools:
+			--> chnages get reflected no need to change..
+					anything in the classpath that is considered as watch 
+		content negotiator
+		
+		localhost:8080/trace
+		localhost:8080/autoconfig
+		localhost:8080/health
+		localhost:8080/env
+		localhost:8080/beans
+		
+		Actuator
+			For Analysis.. health, metatdata... monitor
+				Actuator exposes all the information
+		HAL Browser
+			Is to view information in browser
+		Spring boot comes with three embedded servers
+			--> Tomcat
+			--> Jetty
+			--> Undertow
+			
+		server.port: 0 --> Spring will resolve
+		YAML: Yaml way of configuring the application.properties
+		Command line argument property values have higher priority than the properties configured in application.properties file
+		Spring provides multiple ways to provide the values for configuratble properties
+			--> Property file 
+			--> Profiles
+			--> spring config location
+			--> VM argurments
+			--> Program argurments
+
+			Spring provides in-memory database
+			CommandLineRunner: as soon as spring boot launches application this commandline runner becomes ready for invoke
+					--> used to as soon as things are up and running what spring boot does to launch up the commandline runner 
+					so this commandline runner very useful thing to initialize at the start up of the application
+					
+			HATEOS: Hypermedia as Representation of Application State
+			
+			http://localhost:8080/h2-console
+
+Goals and Features of Spring Boot:
+Goals
+Enable building production ready applications quickly
+Provide common non-functional features 
+- embedded servers
+- metrics
+- health checks
+- externalized configuration
+
+What Spring Boot is NOT!
+ZERO code generation
+Neither an application server nor a web server
+
+Features
+Quick Starter Projects with Auto Configuration
+ - Web
+ - JPA
+Embedded Servers - Tomcat, Jetty or Undertow
+Production-ready features
+ - metrics and health checks 
+ - externalized configuration
+		--> Configuration from Dev will be different with production env
+
+@SringBootApplication:
+	--> This is a spring context file
+	--> It enables autoconfiguration
+	--> It enables Component Scan
+	
+Spring Boot looks at a) Frameworks available on the CLASSPATH b) Existing configuration for the application. Based on these, Spring Boot provides basic configuration needed to configure the application with these frameworks. This is called Auto Configuration	
+
+Problem:
+once the application is started we can not update the properties at runtime. If we change the properties we need to restart the application to use the updated configuration properties.
+without git repo:
+https://stackoverflow.com/questions/33178448/using-spring-cloud-config-without-git-repo
+https://sivalabs.in/2017/08/spring-cloud-tutorials-introduction-to-spring-cloud-config-server/
+https://github.com/michaelcgood/michaelcgood-spring-cloud-config-server/tree/master/mcg-configuration-service/src
+https://dzone.com/articles/intro-to-spring-cloud-config-server
+AutoRefresh: https://sivalabs.in/2017/08/spring-cloud-tutorials-auto-refresh-config-changes-using-spring-cloud-bus/
+
+Retry: Annotation AOP usage
+https://sivalabs.in/2016/01/retrying-method-execution-using-spring-aop/
+
+Enable HTTPS in Spring Boot:
+https://www.drissamri.be/blog/java/enable-https-in-spring-boot/
+https://sivalabs.in/2015/12/jcart-configuring-https-ssltls/
+
+JHipster:
+https://www.drissamri.be/blog/technology/starting-modern-java-project-with-jhipster/
+
+How SpringBoot AutoConfiguration magic works?
+https://sivalabs.in/2016/03/how-springboot-autoconfiguration-magic/
